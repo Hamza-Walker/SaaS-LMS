@@ -44,15 +44,3 @@ Here's a summarized and organized version of your features for the SaaS LMS to i
 - 🟣 **And So Much More**: Additional features to enhance the overall learning experience.
 
 ---
-
-This structured format will help users quickly understand the features of your SaaS LMS and its capabilities.
-
-Citations:
-[1] https://www.invince.com/invince-blog/saas-lms-features-for-2020-beyond
-[2] https://training.safetyculture.com/blog/saas-lms/
-[3] https://disprz.ai/blog/tips-to-choose-best-saas-lms
-[4] https://www.learnupon.com/blog/saas-lms/
-[5] https://www.franconnect.com/what-is-a-saas-lms/
-[6] https://www.educate-me.co/blog/saas-lms
-[7] https://www.docebo.com/learning-network/blog/saas-lms/
-[8] https://www.violetlms.com/blog/saas-lms-guide-everything-you-should-know/
