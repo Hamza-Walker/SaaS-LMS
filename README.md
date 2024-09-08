@@ -1,6 +1,4 @@
-Here's a summarized and organized version of your features for the SaaS LMS to include in your `README.md` file for your GitHub repository:
 
----
 
 # SaaS Learning Management System (LMS)
 
@@ -43,4 +41,3 @@ Here's a summarized and organized version of your features for the SaaS LMS to i
 - ⚙️ **Production Ready Setup**: Includes Husky, linters, and other tools for a robust development environment.
 - 🟣 **And So Much More**: Additional features to enhance the overall learning experience.
 
----
