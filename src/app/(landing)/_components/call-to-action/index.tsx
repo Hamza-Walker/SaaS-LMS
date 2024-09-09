@@ -15,10 +15,10 @@ const CallToAction = (props: Props) => {
                 Bringing Communities <br className="md:hidden" /> Together
             </GradientText>
             <p className="text-sm md:text-center text-left text-muted-foreground">
-                Grouple is a vibrant online community platform that empowers
+                Grouple is a vibrant online community platform that empowers{" "}
                 <br className="md:hidden" />
                 people to connect, <br className="hidden md:block" />{" "}
-                collaborate, and cultivate meaningful
+                collaborate, and cultivate meaningful{" "}
                 <br className="md:hidden" />
                 relationships
             </p>
