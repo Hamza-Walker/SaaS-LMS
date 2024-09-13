@@ -1,5 +1,5 @@
 import { onSignUpUser } from "@/actions/auth"
-import { SignInSchema } from "@/components/forms/sign-in/scehma"
+import { SignInSchema } from "@/components/forms/sign-in/schema"
 import { SignUpSchema } from "@/components/forms/sign-up/schema"
 import { useSignIn, useSignUp } from "@clerk/nextjs"
 import { OAuthStrategy } from "@clerk/types"
