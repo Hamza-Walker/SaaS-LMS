@@ -22,7 +22,7 @@ const CreateGroupLayout = ({ children }: Props) => {
                         Create Your Group
                     </GradientText>
                     <p className="text-themeTextGray">
-                        Free for 14 days, then $99/month. Cancel anytime.All
+                        Free for 14 days, then $3.99/month. Cancel anytime.All
                         features. Unlimited everything. No hidden fees.
                     </p>
                     <div className="flex flex-col gap-3 mt-16 pl-5">

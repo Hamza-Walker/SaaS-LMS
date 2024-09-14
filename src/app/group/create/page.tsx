@@ -23,7 +23,7 @@ const GroupCreatePage = async ({
                     Payment Method
                 </h5>
                 <p className="text-themeTextGray leading-tight">
-                    Free for 14 days, then $99/month. Cancel anytime.All
+                    Free for 14 days, then $3.99/month. Cancel anytime.All
                     features. Unlimited everything. No hidden fees.
                 </p>
                 {affiliate.status === 200 && (

@@ -40,6 +40,22 @@ export const onGetAffiliateInfo = async (id: string) => {
     }
 }
 
+/**
+ * Creates a new group and associates it with the specified user.
+ *
+ * This function updates the user record with a new group and initializes
+ * related records:
+ * - **Affiliate**: An affiliate record is created (default empty object).
+ * - **Member**: A membership record is created, linking the user to the new group.
+ *
+ * @param userId - The ID of the user who is creating the new group.
+ * @param data - The data required to create the new group, validated against
+ *               `CreateGroupSchema`.
+ *
+ * @returns The updated user record with the newly created group.
+ *
+ * @throws Error if the group creation fails.
+ */
 export const onCreateNewGroup = async (
     userId: string,
     data: z.infer<typeof CreateGroupSchema>,
