@@ -58,4 +58,3 @@ const GroupChannelPage = async ({ params }: Props) => {
 }
 
 export default GroupChannelPage
-
