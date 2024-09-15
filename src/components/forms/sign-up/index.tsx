@@ -1,8 +1,9 @@
 "use client"
+
 import { FormGenerator } from "@/components/global/form-generator"
 import { Loader } from "@/components/global/loader"
 import { Button } from "@/components/ui/button"
-import { GROUPLE_CONSTANTS } from "@/constants"
+import { Samawa_CONSTANTS } from "@/constants"
 import { useAuthSignUp } from "@/hooks/authentication"
 import dynamic from "next/dynamic"
 
@@ -39,7 +40,7 @@ const SignUpForm = (props: Props) => {
                     <OtpInput otp={code} setOtp={setCode} />
                 </div>
             ) : (
-                GROUPLE_CONSTANTS.signUpForm.map((field) => (
+                Samawa_CONSTANTS.signUpForm.map((field) => (
                     <FormGenerator
                         {...field}
                         key={field.id}

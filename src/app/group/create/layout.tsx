@@ -1,7 +1,7 @@
 import BackdropGradient from "@/components/global/backdrop-gradient"
 import GlassCard from "@/components/global/glass-card"
 import GradientText from "@/components/global/gradient-text"
-import { GROUPLE_CONSTANTS } from "@/constants"
+import { Samawa_CONSTANTS } from "@/constants"
 
 type Props = {
     children: React.ReactNode
@@ -13,7 +13,7 @@ const CreateGroupLayout = ({ children }: Props) => {
             <div className="flex items-center">
                 <BackdropGradient className="w-8/12 h-2/6 opacity-50">
                     <h5 className="text-2xl font-bold text-themeTextWhite">
-                        Grouple.
+                        Samawa.
                     </h5>
                     <GradientText
                         element="H2"
@@ -26,7 +26,7 @@ const CreateGroupLayout = ({ children }: Props) => {
                         features. Unlimited everything. No hidden fees.
                     </p>
                     <div className="flex flex-col gap-3 mt-16 pl-5">
-                        {GROUPLE_CONSTANTS.createGroupPlaceholder.map(
+                        {Samawa_CONSTANTS.createGroupPlaceholder.map(
                             (placeholder) => (
                                 <div
                                     className="flex gap-3"

@@ -1,7 +1,8 @@
+import { Card, CardDescription, CardTitle } from "@/components/ui/card"
+
 import BackdropGradient from "@/components/global/backdrop-gradient"
 import GradientText from "@/components/global/gradient-text"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardTitle } from "@/components/ui/card"
 import { Check } from "@/icons"
 import Link from "next/link"
 
@@ -21,7 +22,7 @@ export const PricingSection = (props: Props) => {
                     Pricing Plans That Fit Your Right
                 </GradientText>
                 <p className="text-sm md:text-center text-left text-muted-foreground">
-                    Grouple is a vibrant online community platform that empowers
+                    Samawa is a vibrant online community platform that empowers
                     people to connect, <br className="hidden md:block" />
                     collaborate, and cultivate meaningful relationships
                 </p>
