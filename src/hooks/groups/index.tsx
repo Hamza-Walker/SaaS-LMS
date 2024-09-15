@@ -40,23 +40,21 @@ import { toast } from "sonner"
 import { v4 } from "uuid"
 import { z } from "zod"
 
-
-
 /**
  * Custom hook to track and manage online members in a group chat using Supabase presence tracking.
- * 
+ *
  * @param {string} userid - The unique ID of the current user to be tracked online.
- * 
+ *
  * This hook subscribes to a "tracking" channel via Supabase's real-time presence system.
- * When a sync event occurs, it updates the online users in the group by dispatching 
- * the `onOnline` action to the Redux store. The current user is also tracked when the 
+ * When a sync event occurs, it updates the online users in the group by dispatching
+ * the `onOnline` action to the Redux store. The current user is also tracked when the
  * subscription is successfully established.
- * 
- * - The hook listens for presence syncs using `channel.on("presence", ...)` to get the 
+ *
+ * - The hook listens for presence syncs using `channel.on("presence", ...)` to get the
  *   state of online users and updates the Redux store with these users.
  * - It tracks the current user once the subscription status is "SUBSCRIBED".
  * - When the component using this hook unmounts, the channel is unsubscribed for cleanup.
- * 
+ *
  * @example
  * useGroupChatOnline(currentUserId);
  */
