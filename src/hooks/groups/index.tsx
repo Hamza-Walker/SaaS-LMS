@@ -1,39 +1,41 @@
 "use client"
+
 import {
-  onAddCustomDomain,
-  onGetAllGroupMembers,
-  onGetAllUserMessages,
-  onGetDomainConfig,
-  onGetExploreGroup,
-  onGetGroupInfo,
-  onSearchGroups,
-  onSendMessage,
-  onUpDateGroupSettings,
-  onUpdateGroupGallery,
+	onAddCustomDomain,
+	onGetAllGroupMembers,
+	onGetAllUserMessages,
+	onGetDomainConfig,
+	onGetExploreGroup,
+	onGetGroupInfo,
+	onSearchGroups,
+	onSendMessage,
+	onUpDateGroupSettings,
+	onUpdateGroupGallery,
 } from "@/actions/groups"
+import { supabaseClient, validateURLString } from "@/lib/utils"
+import {
+	onClearList,
+	onInfiniteScroll,
+} from "@/redux/slices/infinite-scroll-slice"
+import {
+	GroupStateProps,
+	onClearSearch,
+	onSearch,
+} from "@/redux/slices/search-slice"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
+
 import { AddCustomDomainSchema } from "@/components/forms/domain/schema"
 import { GroupSettingsSchema } from "@/components/forms/group-settings/schema"
 import { SendNewMessageSchema } from "@/components/forms/huddles/schema"
 import { UpdateGallerySchema } from "@/components/forms/media-gallery/schema"
 import { upload } from "@/lib/uploadcare"
-import { supabaseClient, validateURLString } from "@/lib/utils"
 import { onChat } from "@/redux/slices/chats-slices"
-import {
-  onClearList,
-  onInfiniteScroll,
-} from "@/redux/slices/infinite-scroll-slice"
 import { onOnline } from "@/redux/slices/online-member-slice"
-import {
-  GroupStateProps,
-  onClearSearch,
-  onSearch,
-} from "@/redux/slices/search-slice"
 import { AppDispatch } from "@/redux/store"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { usePathname, useRouter } from "next/navigation"
 import { JSONContent } from "novel"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { toast } from "sonner"
@@ -41,23 +43,24 @@ import { v4 } from "uuid"
 import { z } from "zod"
 
 /**
- * Custom hook to track and manage online members in a group chat using Supabase presence tracking.
- *
- * @param {string} userid - The unique ID of the current user to be tracked online.
- *
- * This hook subscribes to a "tracking" channel via Supabase's real-time presence system.
- * When a sync event occurs, it updates the online users in the group by dispatching
- * the `onOnline` action to the Redux store. The current user is also tracked when the
- * subscription is successfully established.
- *
- * - The hook listens for presence syncs using `channel.on("presence", ...)` to get the
- *   state of online users and updates the Redux store with these users.
- * - It tracks the current user once the subscription status is "SUBSCRIBED".
- * - When the component using this hook unmounts, the channel is unsubscribed for cleanup.
- *
- * @example
- * useGroupChatOnline(currentUserId);
- */
+* Custom hook to track and manage online members in a group chat using Supabase presence tracking.
+*
+* @param {string} userid - The unique ID of the current user to be tracked online.
+*
+* This hook subscribes to a "tracking" channel via Supabase's real-time presence system.
+* When a sync event occurs, it updates the online users in the group by dispatching
+* the `onOnline` action to the Redux store. The current user is also tracked when the
+* subscription is successfully established.
+*
+* - The hook listens for presence syncs using `channel.on("presence", ...)` to get the
+*   state of online users and updates the Redux store with these users.
+* - It tracks the current user once the subscription status is "SUBSCRIBED".
+* - When the component using this hook unmounts, the channel is unsubscribed for cleanup.
+*
+* @example
+* useGroupChatOnline(currentUserId);
+*/
+
 export const useGroupChatOnline = (userid: string) => {
   const dispatch: AppDispatch = useDispatch()
 
@@ -92,6 +95,33 @@ export const useGroupChatOnline = (userid: string) => {
   }, [])
 }
 
+/**
+ * Custom hook for handling search functionality with debouncing and querying.
+ * 
+ * This hook manages search input, applies debouncing to reduce the number of API calls, and 
+ * updates the Redux store with search results. It handles searching for both "GROUPS" and 
+ * "POSTS" based on the provided search type.
+ * 
+ * @param {("GROUPS" | "POSTS")} search - Specifies the type of search to perform.
+ * @returns {{ query: string, onSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => void }} 
+ * - `query`: The current search query.
+ * - `onSearchQuery`: Function to update the search query based on input change.
+ * 
+ * **Internal State:**
+ * - `query`: Stores the current search input.
+ * - `debounce`: Stores the debounced value of the search input.
+ * 
+ * **Effects:**
+ * - Debounces the search query input to minimize the number of API calls.
+ * - Triggers a search query after the debounce delay.
+ * - Dispatches search status and results to Redux store based on fetching state.
+ * - Clears search results when the debounce value is empty.
+ * 
+ * **Usage:**
+ * - Call `useSearch` with the desired search type ("GROUPS" or "POSTS").
+ * - Use `query` to access the current search term.
+ * - Use `onSearchQuery` to handle input changes and update the search term.
+ */
 export const useSearch = (search: "GROUPS" | "POSTS") => {
   const [query, setQuery] = useState<string>("")
   const [debounce, setDebounce] = useState<string>("")
