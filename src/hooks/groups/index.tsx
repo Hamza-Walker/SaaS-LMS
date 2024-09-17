@@ -178,38 +178,38 @@ export const useSearch = (search: "GROUPS" | "POSTS") => {
   return { query, onSearchQuery }
 }
 /**
-* Custom hook `useGroupSettings` to manage group settings such as description, name, icons, and thumbnails.
-* It integrates React Query for data fetching, React Hook Form for form handling, and Supabase/MongoDB API 
-* for updating group settings.
-* 
-* @param {string} groupid - The unique identifier of the group whose settings are being managed.
-* 
-* @returns {{
-*   data: any,                       // Group data fetched from the server
-*   register: Function,               // Function to register form fields with react-hook-form
-*   errors: object,                   // Form validation errors
-*   onUpdate: Function,               // Function to handle form submission and update group settings
-*   isPending: boolean,               // Loading state for the mutation
-*   previewIcon: string | undefined,  // Preview URL for the icon file input
-*   previewThumbnail: string | undefined,  // Preview URL for the thumbnail file input
-*   onJsonDescription: JSONContent | undefined,  // Current JSON description of the group
-*   setJsonDescription: Function,     // Function to update the JSON description
-*   setOnDescription: Function,       // Function to update the plain text description
-*   onDescription: string | undefined // Current plain text description of the group
-* }}
-* 
-* Functionality:
-* - Fetches group information using `useQuery` based on the provided `groupid`.
-* - Handles form submission for updating the group settings such as name, description, icon, and thumbnail.
-* - Manages the form state using React Hook Form and provides validation with Zod schema.
-* - Updates group data on the server via mutations and provides success/error messages via toasts.
-* - Provides real-time previews for icon and thumbnail images.
-* 
-* Side Effects:
-* - Automatically updates form fields (`jsondescription`, `description`) based on changes in the group data.
-* - Uses `useEffect` to manage live previews for image uploads.
-* - Navigates the user to the group creation page if the group data is not found (status !== 200).
-*/
+ * Custom hook `useGroupSettings` to manage group settings such as description, name, icons, and thumbnails.
+ * It integrates React Query for data fetching, React Hook Form for form handling, and Supabase/MongoDB API
+ * for updating group settings.
+ *
+ * @param {string} groupid - The unique identifier of the group whose settings are being managed.
+ *
+ * @returns {{
+ *   data: any,                       // Group data fetched from the server
+ *   register: Function,               // Function to register form fields with react-hook-form
+ *   errors: object,                   // Form validation errors
+ *   onUpdate: Function,               // Function to handle form submission and update group settings
+ *   isPending: boolean,               // Loading state for the mutation
+ *   previewIcon: string | undefined,  // Preview URL for the icon file input
+ *   previewThumbnail: string | undefined,  // Preview URL for the thumbnail file input
+ *   onJsonDescription: JSONContent | undefined,  // Current JSON description of the group
+ *   setJsonDescription: Function,     // Function to update the JSON description
+ *   setOnDescription: Function,       // Function to update the plain text description
+ *   onDescription: string | undefined // Current plain text description of the group
+ * }}
+ *
+ * Functionality:
+ * - Fetches group information using `useQuery` based on the provided `groupid`.
+ * - Handles form submission for updating the group settings such as name, description, icon, and thumbnail.
+ * - Manages the form state using React Hook Form and provides validation with Zod schema.
+ * - Updates group data on the server via mutations and provides success/error messages via toasts.
+ * - Provides real-time previews for icon and thumbnail images.
+ *
+ * Side Effects:
+ * - Automatically updates form fields (`jsondescription`, `description`) based on changes in the group data.
+ * - Uses `useEffect` to manage live previews for image uploads.
+ * - Navigates the user to the group creation page if the group data is not found (status !== 200).
+ */
 export const useGroupSettings = (groupid: string) => {
   const { data } = useQuery({
     queryKey: ["group-info"],

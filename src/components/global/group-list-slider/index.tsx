@@ -6,7 +6,7 @@ import { SwiperProps, SwiperSlide } from "swiper/react"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Samawa_CONSTANTS } from "@/constants"
+import { SAMAWA_CONSTANTS } from "@/constants"
 import Link from "next/link"
 import { UseFormRegister } from "react-hook-form"
 import { Slider } from "../slider"
@@ -38,7 +38,7 @@ export const GroupListSlider = ({
       overlay={overlay}
       {...rest}
     >
-      {Samawa_CONSTANTS.groupList.map((item, i) => (
+      {SAMAWA_CONSTANTS.groupList.map((item, i) => (
         <SwiperSlide key={item.id} className="content-width-slide ">
           {!register ? (
             route ? (

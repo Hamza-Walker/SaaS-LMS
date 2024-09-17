@@ -11,8 +11,6 @@ export const Notification = () => {
           <Bell />
         </span>
       }
-    >
-      <div>yo</div>
-    </GlassSheet>
+    ></GlassSheet>
   )
 }

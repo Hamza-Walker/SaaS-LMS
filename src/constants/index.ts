@@ -20,7 +20,7 @@ type SamawaConstantsProps = {
   groupPageMenu: GroupMenuProps[]
 }
 
-export const Samawa_CONSTANTS: SamawaConstantsProps = {
+export const SAMAWA_CONSTANTS: SamawaConstantsProps = {
   landingPageMenu: LANDING_PAGE_MENU,
   signUpForm: SIGN_UP_FORM,
   signInForm: SIGN_IN_FORM,
