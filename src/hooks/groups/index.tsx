@@ -22,7 +22,12 @@ import {
   onClearSearch,
   onSearch,
 } from "@/redux/slices/search-slice"
-import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
@@ -275,53 +280,52 @@ export const useGroupSettings = (groupid: string) => {
     mutationKey: ["group-settings"],
     mutationFn: async (values: z.infer<typeof GroupSettingsSchema>) => {
       if (values.thumbnail && values.thumbnail.length > 0) {
-	  try {
-	    const uploaded = await upload.uploadFile(values.thumbnail[0]);
-	    if (!uploaded || !uploaded.uuid) {
-	      throw new Error("Thumbnail upload failed.");
-	    }
-	    const updated = await onUpDateGroupSettings(
-	      groupid,
-	      "IMAGE",
-	      uploaded.uuid,
-	      `/group/${groupid}/settings`
-	    );
-	    if (updated.status !== 200) {
-	      throw new Error("Updating group thumbnail failed.");
-	    }
-	  } catch (error) {
-	    console.error("Thumbnail Error:", error);
-	    return toast("Error", {
-	      description: "Failed to update thumbnail.",
-	    });
-	  }
-	}
+        try {
+          const uploaded = await upload.uploadFile(values.thumbnail[0])
+          if (!uploaded || !uploaded.uuid) {
+            throw new Error("Thumbnail upload failed.")
+          }
+          const updated = await onUpDateGroupSettings(
+            groupid,
+            "IMAGE",
+            uploaded.uuid,
+            `/group/${groupid}/settings`,
+          )
+          if (updated.status !== 200) {
+            throw new Error("Updating group thumbnail failed.")
+          }
+        } catch (error) {
+          console.error("Thumbnail Error:", error)
+          return toast("Error", {
+            description: "Failed to update thumbnail.",
+          })
+        }
+      }
 
-	if (values.icon && values.icon.length > 0) {
-	  try {
-	    const uploaded = await upload.uploadFile(values.icon[0]);
-	    if (!uploaded || !uploaded.uuid) {
-	      throw new Error("Icon upload failed.");
-	    }
-	    const updated = await onUpDateGroupSettings(
-	      groupid,
-	      "ICON",
-	      uploaded.uuid,
-	      `/group/${groupid}/settings`
-	    );
-	    if (updated.status !== 200) {
-	      throw new Error("Updating group icon failed.");
-	    }
-	  } catch (error) {
-	    console.error("Icon Error:", error);
-	    return toast("Error", {
-	      description: "Failed to update icon.",
-	    });
-	  }
-	}
+      if (values.icon && values.icon.length > 0) {
+        try {
+          const uploaded = await upload.uploadFile(values.icon[0])
+          if (!uploaded || !uploaded.uuid) {
+            throw new Error("Icon upload failed.")
+          }
+          const updated = await onUpDateGroupSettings(
+            groupid,
+            "ICON",
+            uploaded.uuid,
+            `/group/${groupid}/settings`,
+          )
+          if (updated.status !== 200) {
+            throw new Error("Updating group icon failed.")
+          }
+        } catch (error) {
+          console.error("Icon Error:", error)
+          return toast("Error", {
+            description: "Failed to update icon.",
+          })
+        }
+      }
 
-
-	if (values.name) {
+      if (values.name) {
         const updated = await onUpDateGroupSettings(
           groupid,
           "NAME",
@@ -377,11 +381,11 @@ export const useGroupSettings = (groupid: string) => {
         description: "Group data updated",
       })
     },
-     onSuccess: async () => {
-     return await client.invalidateQueries({
-       queryKey: ["group-info"]
-     })
-},
+    onSuccess: async () => {
+      return await client.invalidateQueries({
+        queryKey: ["group-info"],
+      })
+    },
   })
   const router = useRouter()
   const onUpdate = handleSubmit(async (values) => update(values))

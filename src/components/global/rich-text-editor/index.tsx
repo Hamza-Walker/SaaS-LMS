@@ -157,8 +157,7 @@ const BlockTextEditor = ({
                 <p
                   className={cn(
                     "text-xs",
-                    characters && characters == max &&
-                      "text-red-500",
+                    characters && characters == max && "text-red-500",
                   )}
                 >
                   {characters || 0} / {max}
@@ -179,8 +178,7 @@ const BlockTextEditor = ({
               <p
                 className={cn(
                   "text-xs",
-                  characters && characters == max &&
-                    "text-red-500",
+                  characters && characters == max && "text-red-500",
                 )}
               >
                 {characters || 0} / {max}
