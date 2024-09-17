@@ -1,26 +1,26 @@
 "use client"
 
 import {
-	onAddCustomDomain,
-	onGetAllGroupMembers,
-	onGetAllUserMessages,
-	onGetDomainConfig,
-	onGetExploreGroup,
-	onGetGroupInfo,
-	onSearchGroups,
-	onSendMessage,
-	onUpDateGroupSettings,
-	onUpdateGroupGallery,
+  onAddCustomDomain,
+  onGetAllGroupMembers,
+  onGetAllUserMessages,
+  onGetDomainConfig,
+  onGetExploreGroup,
+  onGetGroupInfo,
+  onSearchGroups,
+  onSendMessage,
+  onUpDateGroupSettings,
+  onUpdateGroupGallery,
 } from "@/actions/groups"
 import { supabaseClient, validateURLString } from "@/lib/utils"
 import {
-	onClearList,
-	onInfiniteScroll,
+  onClearList,
+  onInfiniteScroll,
 } from "@/redux/slices/infinite-scroll-slice"
 import {
-	GroupStateProps,
-	onClearSearch,
-	onSearch,
+  GroupStateProps,
+  onClearSearch,
+  onSearch,
 } from "@/redux/slices/search-slice"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { usePathname, useRouter } from "next/navigation"
@@ -43,23 +43,23 @@ import { v4 } from "uuid"
 import { z } from "zod"
 
 /**
-* Custom hook to track and manage online members in a group chat using Supabase presence tracking.
-*
-* @param {string} userid - The unique ID of the current user to be tracked online.
-*
-* This hook subscribes to a "tracking" channel via Supabase's real-time presence system.
-* When a sync event occurs, it updates the online users in the group by dispatching
-* the `onOnline` action to the Redux store. The current user is also tracked when the
-* subscription is successfully established.
-*
-* - The hook listens for presence syncs using `channel.on("presence", ...)` to get the
-*   state of online users and updates the Redux store with these users.
-* - It tracks the current user once the subscription status is "SUBSCRIBED".
-* - When the component using this hook unmounts, the channel is unsubscribed for cleanup.
-*
-* @example
-* useGroupChatOnline(currentUserId);
-*/
+ * Custom hook to track and manage online members in a group chat using Supabase presence tracking.
+ *
+ * @param {string} userid - The unique ID of the current user to be tracked online.
+ *
+ * This hook subscribes to a "tracking" channel via Supabase's real-time presence system.
+ * When a sync event occurs, it updates the online users in the group by dispatching
+ * the `onOnline` action to the Redux store. The current user is also tracked when the
+ * subscription is successfully established.
+ *
+ * - The hook listens for presence syncs using `channel.on("presence", ...)` to get the
+ *   state of online users and updates the Redux store with these users.
+ * - It tracks the current user once the subscription status is "SUBSCRIBED".
+ * - When the component using this hook unmounts, the channel is unsubscribed for cleanup.
+ *
+ * @example
+ * useGroupChatOnline(currentUserId);
+ */
 
 export const useGroupChatOnline = (userid: string) => {
   const dispatch: AppDispatch = useDispatch()
@@ -97,26 +97,26 @@ export const useGroupChatOnline = (userid: string) => {
 
 /**
  * Custom hook for handling search functionality with debouncing and querying.
- * 
- * This hook manages search input, applies debouncing to reduce the number of API calls, and 
- * updates the Redux store with search results. It handles searching for both "GROUPS" and 
+ *
+ * This hook manages search input, applies debouncing to reduce the number of API calls, and
+ * updates the Redux store with search results. It handles searching for both "GROUPS" and
  * "POSTS" based on the provided search type.
- * 
+ *
  * @param {("GROUPS" | "POSTS")} search - Specifies the type of search to perform.
- * @returns {{ query: string, onSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => void }} 
+ * @returns {{ query: string, onSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => void }}
  * - `query`: The current search query.
  * - `onSearchQuery`: Function to update the search query based on input change.
- * 
+ *
  * **Internal State:**
  * - `query`: Stores the current search input.
  * - `debounce`: Stores the debounced value of the search input.
- * 
+ *
  * **Effects:**
  * - Debounces the search query input to minimize the number of API calls.
  * - Triggers a search query after the debounce delay.
  * - Dispatches search status and results to Redux store based on fetching state.
  * - Clears search results when the debounce value is empty.
- * 
+ *
  * **Usage:**
  * - Call `useSearch` with the desired search type ("GROUPS" or "POSTS").
  * - Use `query` to access the current search term.
@@ -177,7 +177,39 @@ export const useSearch = (search: "GROUPS" | "POSTS") => {
 
   return { query, onSearchQuery }
 }
-
+/**
+* Custom hook `useGroupSettings` to manage group settings such as description, name, icons, and thumbnails.
+* It integrates React Query for data fetching, React Hook Form for form handling, and Supabase/MongoDB API 
+* for updating group settings.
+* 
+* @param {string} groupid - The unique identifier of the group whose settings are being managed.
+* 
+* @returns {{
+*   data: any,                       // Group data fetched from the server
+*   register: Function,               // Function to register form fields with react-hook-form
+*   errors: object,                   // Form validation errors
+*   onUpdate: Function,               // Function to handle form submission and update group settings
+*   isPending: boolean,               // Loading state for the mutation
+*   previewIcon: string | undefined,  // Preview URL for the icon file input
+*   previewThumbnail: string | undefined,  // Preview URL for the thumbnail file input
+*   onJsonDescription: JSONContent | undefined,  // Current JSON description of the group
+*   setJsonDescription: Function,     // Function to update the JSON description
+*   setOnDescription: Function,       // Function to update the plain text description
+*   onDescription: string | undefined // Current plain text description of the group
+* }}
+* 
+* Functionality:
+* - Fetches group information using `useQuery` based on the provided `groupid`.
+* - Handles form submission for updating the group settings such as name, description, icon, and thumbnail.
+* - Manages the form state using React Hook Form and provides validation with Zod schema.
+* - Updates group data on the server via mutations and provides success/error messages via toasts.
+* - Provides real-time previews for icon and thumbnail images.
+* 
+* Side Effects:
+* - Automatically updates form fields (`jsondescription`, `description`) based on changes in the group data.
+* - Uses `useEffect` to manage live previews for image uploads.
+* - Navigates the user to the group creation page if the group data is not found (status !== 200).
+*/
 export const useGroupSettings = (groupid: string) => {
   const { data } = useQuery({
     queryKey: ["group-info"],
