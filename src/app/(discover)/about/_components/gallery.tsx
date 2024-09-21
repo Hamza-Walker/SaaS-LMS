@@ -24,7 +24,10 @@ const MediaGallery = ({
   userid,
 }: Props) => {
   const { removeGalleryItem, isPending } = useMediaGallery(groupid)
-  const [activeMedia, setActiveMedia] = useState<{ url: string; type: string } | null>(null)
+  const [activeMedia, setActiveMedia] = useState<{
+    url: string
+    type: string
+  } | null>(null)
 
   const handleRemove = (mediaUrl: string) => {
     toast(
@@ -48,7 +51,7 @@ const MediaGallery = ({
           </button>
         </div>
       </div>,
-      { duration: Infinity } // Keep the toast open until the user interacts
+      { duration: Infinity }, // Keep the toast open until the user interacts
     )
   }
 
@@ -125,4 +128,3 @@ const MediaGallery = ({
 }
 
 export default MediaGallery
-
