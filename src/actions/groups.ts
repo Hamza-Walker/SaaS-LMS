@@ -515,6 +515,42 @@ export const onUpdateGroupGallery = async (
   }
 }
 
+export const onRemoveGroupGallery = async (groupid: string, content:string) => {
+try {
+      const group = await client.group.findUnique({
+			where: {
+			   id: groupid,
+			},
+			select: {
+			    gallery: true,
+			},
+		})
+		if(group && group?.gallery.length > 0) {
+
+		const updatedGallery = group.gallery.filter((item) => item !== content)	
+		
+		await client.group.update({
+			where: {
+				id: groupid,
+			},
+			data: {
+				gallery: updatedGallery,
+			},
+		})
+		
+		revalidatePath(`/about/${groupid}`)
+			return { status: 200, message: "Media removed successfully" }
+		}
+		return {
+			status: 400,
+			message: "Media not found"
+		}
+	  
+} catch (error) {
+	return { status: 400, message: "Failed to remove media" }	
+}	 
+
+}
 export const onJoinGroup = async (groupid: string) => {
   try {
     const user = await onAuthenticatedUser()
