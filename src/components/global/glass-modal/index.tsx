@@ -11,7 +11,7 @@ type GlassModalProps = {
   trigger: JSX.Element
   children: React.ReactNode
   title: string
-  description: string
+  description: React.ReactNode
 }
 
 export const GlassModal = ({
