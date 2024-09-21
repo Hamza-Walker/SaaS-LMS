@@ -1,4 +1,5 @@
 import MediaGalleryForm from "@/components/forms/media-gallery"
+import AboutRemoveButton from "@/components/global/about-remove-button"
 import { GlassModal } from "@/components/global/glass-modal"
 import { Card, CardContent } from "@/components/ui/card"
 import { useMediaGallery } from "@/hooks/groups"
@@ -76,13 +77,14 @@ const MediaGallery = ({
 
             {/* Remove Button */}
             {userid === groupUserid && (
-              <button
-                className="absolute  bg-red-500 text-white p-1 rounded-full"
-                onClick={() => handleRemove(gal)}
-                disabled={isPending}
-              >
-                Remove
-              </button>
+              <AboutRemoveButton
+       		userid={userid}			
+		onRemove={() => handleRemove(gal)}
+		groupUserid={groupUserid}
+		disabled={isPending}
+	      />
+                
+              
             )}
           </div>
         ))}
