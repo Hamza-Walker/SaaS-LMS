@@ -277,4 +277,3 @@ export const onUpdateCourseSectionContent = async (
     return { status: 400, message: "Oop! something went wrong" }
   }
 }
-
