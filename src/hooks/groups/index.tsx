@@ -455,8 +455,10 @@ export const useGroupInfo = () => {
 
   const router = useRouter()
 
-  if (!data) router.push("/explore")
-
+  if (!data) {
+	router.push("/explore")
+	return null
+	}
   const { group, status } = data as { status: number; group: GroupStateProps }
 
   if (status !== 200) router.push("/explore")
