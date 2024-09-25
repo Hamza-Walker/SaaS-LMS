@@ -17,7 +17,7 @@ type SamawaConstantsProps = {
   signInForm: AuthFormProps[]
   groupList: GroupListProps[]
   createGroupPlaceholder: CreateGroupPlaceholderProps[]
-  groupPageMenu: GroupMenuProps[]
+  groupPageMenu: MenuProps[]
 }
 
 export const SAMAWA_CONSTANTS: SamawaConstantsProps = {
