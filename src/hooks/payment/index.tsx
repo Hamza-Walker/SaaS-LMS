@@ -257,6 +257,10 @@ export const useStripeConnect = (groupid: string) => {
     useState<boolean>(false)
 
   const onStripeConnect = async () => {
+    if (!groupid) {
+      console.error("groupid is required")
+      return
+    }
     try {
       setOnStripeAccountPending(true)
       const account = await axios.get(`/api/stripe/connect?groupid=${groupid}`)

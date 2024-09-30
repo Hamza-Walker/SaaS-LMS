@@ -54,7 +54,7 @@ export const LANDING_PAGE_MENU: MenuProps[] = [
 export const GROUP_PAGE_MENU: MenuProps[] = [
   {
     id: 0,
-    label: "Group",
+    label: "Community",
     icon: <Home />,
     path: "/",
     section: true,

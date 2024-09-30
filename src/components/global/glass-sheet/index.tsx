@@ -2,7 +2,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
 type GlassSheetProps = {
-  children: React.ReactNode
+  children?: React.ReactNode
   trigger: React.ReactNode
   className?: string
   triggerClass?: string
