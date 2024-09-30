@@ -25,4 +25,3 @@ const AffilateLoading = () => {
 }
 
 export default AffilateLoading
-

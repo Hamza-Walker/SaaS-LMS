@@ -10,7 +10,7 @@ import MediaGallery from "./gallery"
 type Props = { userid: string; groupid: string }
 
 const AboutGroup = ({ groupid, userid }: Props) => {
-  const { group } = useGroupInfo()!; 
+  const { group } = useGroupInfo()!
   const {
     setJsonDescription,
     setOnDescription,

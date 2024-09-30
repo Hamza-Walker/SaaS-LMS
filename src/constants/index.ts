@@ -29,5 +29,5 @@ export const SAMAWA_CONSTANTS: SamawaConstantsProps = {
   groupPageMenu: GROUP_PAGE_MENU,
 }
 
-export const SUPPORTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif"];
-export const SUPPORTED_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"];
+export const SUPPORTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif"]
+export const SUPPORTED_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"]

@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams
     const groupid = searchParams.get("groupid")
-console.log("stripe group id console.log", groupid)
+    console.log("stripe group id console.log", groupid)
     const account = await stripe.accounts.create({
       type: "standard",
       country: "US",
@@ -50,4 +50,3 @@ console.log("stripe group id console.log", groupid)
     )
   }
 }
-
